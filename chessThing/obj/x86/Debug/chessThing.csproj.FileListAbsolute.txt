@@ -1,0 +1,10 @@
+U:\Visual Studio 2010\Projects\chessThing\chessThing\obj\x86\Debug\ResolveAssemblyReference.cache
+U:\Visual Studio 2010\Projects\chessThing\chessThing\bin\Debug\chessThing.exe
+U:\Visual Studio 2010\Projects\chessThing\chessThing\bin\Debug\chessThing.pdb
+U:\Visual Studio 2010\Projects\chessThing\chessThing\obj\x86\Debug\chessThing.exe
+U:\Visual Studio 2010\Projects\chessThing\chessThing\obj\x86\Debug\chessThing.pdb
+D:\Development\chessThing\chessThing\obj\x86\Debug\chessThing.exe
+D:\Development\chessThing\chessThing\obj\x86\Debug\chessThing.pdb
+D:\Development\chessThing\chessThing\bin\Debug\chessThing.exe
+D:\Development\chessThing\chessThing\bin\Debug\chessThing.pdb
+D:\Development\chessThing\chessThing\obj\x86\Debug\chessThing.csprojResolveAssemblyReference.cache
