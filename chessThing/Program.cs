@@ -13,6 +13,8 @@ namespace chessThing
 
             b.drawBoard();
 
+            MoveGenerator.getWhitePawnMoves((ChessBoard)b,false);
+
             ConsoleKey key;
 
             do

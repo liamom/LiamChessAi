@@ -7,7 +7,8 @@ namespace chessThing
 {
     abstract class Board
     {
-        protected char[][] board;
+        public ulong[][] peices;
+
         int cursorY = 0, cursorX = 0;
         int selX = -1, selY = -1;
         List<Move> selectedMoves;
@@ -45,8 +46,8 @@ namespace chessThing
                     }
                     else
                     {
-                        if (selectedMoves.Any(m => m.endX == cursorX && m.endY == cursorY))
-                            movePeice(selX,selY,cursorX,cursorY);
+                        //if (selectedMoves.Any(m => m.endX == cursorX && m.endY == cursorY))
+                        //    movePeice(selX,selY,cursorX,cursorY);
 
                         selX = -1;
                         selY = -1;
@@ -58,40 +59,28 @@ namespace chessThing
             drawBoard();
         }
 
-        protected void movePeice(int startX, int startY, int desX, int desY)
-        {
-            board[desX][desY] = board[startX][startY];
-            board[startX][startY] = ' ';
-        }
-
-        protected char getLocation(int x, int y)
-        {
-            if(x >= 0 && y >= 0)
-                return board[x][y];
-
-            return '!';
-        }
-
         public abstract List<Move> getPosibleMoves(int x,int y);
 
         #region drawing
 
         public void drawBoard()
         {
+            char[][] board = getBoardView();
+
             for (int i = 0; i < 8; i++)
             {
                 int width = 0;
                 int height = i*3;
                 Console.SetCursorPosition(width, height);
-                drawRow("     ",i);
+                drawRow("     ", i, board);
                 Console.SetCursorPosition(width, height+1);
-                drawRow("",i);
+                drawRow("", i, board);
                 Console.SetCursorPosition(width, height + 2);
-                drawRow("     ",i);
+                drawRow("     ", i, board);
             }
         }
 
-        private void drawRow(string contents,int i)
+        private void drawRow(string contents, int i, char[][] board)
         {
             //for each row
             for (int j = 0; j < 8; j++)
@@ -122,8 +111,45 @@ namespace chessThing
                     Console.ForegroundColor = ConsoleColor.White;
                 }
 
-                Console.Write(contents == "" ? "  " + board[j][i] + "  " : contents);
+                Console.Write(contents == "" ? "  " + board[i][j] + "  " : contents);
             }
+        }
+
+        private char[][] getBoardView()
+        {
+            char[][] view = new char[8][];
+
+            for (int i = 0; i < 8; i++)
+            {
+                view[i] = new char[8];
+            }
+            
+            int tCounter = 0;
+            int pCounter = 0;
+
+            char[] bits = {'p','r','b','n','q','k','P','R','B','N','Q','K'};
+
+            foreach (char p in bits)
+            {
+                int rowCounter = 0;
+                string board = Convert.ToString((Int64)Convert.ToUInt64(peices[tCounter][pCounter]), 2).PadLeft(64,'0');
+                foreach (char c in board)
+                {
+                    if (c == '1')
+                        view[rowCounter / 8][rowCounter % 8] = p;
+                    rowCounter++;
+                }
+
+                pCounter++;
+
+                if (p == 'k')
+                {
+                    tCounter++;
+                    pCounter = 0;
+                }
+            }
+
+            return view;
         }
 
         #endregion
