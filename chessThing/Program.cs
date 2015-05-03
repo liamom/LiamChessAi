@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Checkers;
+
 namespace chessThing
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Board b = new ChessBoard();
+            CheckersBoard b = new CheckersBoard(true);
 
-            b.drawBoard();
+            b.DrawBoard();
 
-            MoveGenerator.getWhitePawnMoves((ChessBoard)b,false);
+            //b.Highlighted = MoveGenerator.getMoves((CheckersBoard)b, false);
+
+            //b.State.IsBlackTurn = true;
+            //var movablePieces = MoveGenerator.getMovablePieces(b.State);
+
+            //b.Highlighted = MoveGenerator.combineBits(movablePieces);
+
+            //var test = AI.AlphaBetaInit(b.State, 8, int.MinValue, int.MaxValue, true);
 
             ConsoleKey key;
 
@@ -26,7 +35,7 @@ namespace chessThing
 
                 key = Console.ReadKey(true).Key;
 
-                b.moveCursor(key);
+                b.MoveCursor(key);
 
 
             } while (key != ConsoleKey.Escape);

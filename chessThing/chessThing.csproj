@@ -47,9 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
-    <Compile Include="ChessBoard.cs" />
-    <Compile Include="Move.cs" />
-    <Compile Include="MoveGenerator.cs" />
+    <Compile Include="Checkers\AI.cs" />
+    <Compile Include="Checkers\CheckersBoard.cs" />
+    <Compile Include="Checkers\CheckersBoardState.cs" />
+    <Compile Include="Checkers\MoveGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
