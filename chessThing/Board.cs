@@ -66,23 +66,41 @@ namespace chessThing
                             int num2 = Math.Abs(selY - 7) * 8 + Math.Abs(selX - 7);
                             ulong peice = Convert.ToUInt64(1UL << num2);
                             bool hasCaptured = state.MovePeice(peice, destination);
+                            bool canJump = MoveGenerator.canJump(state, destination).Count > 0;
+                            bool canMove = MoveGenerator.getMoves(state, destination).Count > 0;
 
                             DrawBoard();
 
-                            if (!hasCaptured)
+                            //AIMove
+                            if (!(hasCaptured && canJump) || !canMove)
                             {
                                 State.EndTurn();
-                                CheckersBoardState newState;
-                                CheckersBoardState oldState;
+                                KeyValuePair<ulong, ulong>? newState = null;
+                                bool isPeiceTaken = false;
+                                bool isSecondmove = false;
 
                                 do
                                 {
-                                    oldState = state;
-                                    newState = AI.AlphaBetaInit(State, 8, int.MinValue, int.MaxValue, true);
-                                    state = newState;
+                                    System.Threading.Thread.Sleep(2000);
+
+                                    isPeiceTaken = false;
+
+                                    if (!(isSecondmove && MoveGenerator.canJump(state, state.LastMove).Count > 0) || MoveGenerator.getMoves(state, state.LastMove).Count != 0)
+                                    {
+                                        newState = AI.AlphaBetaInit(State, 4, int.MinValue, int.MaxValue, true, isSecondmove);
+                                        if (newState != null)
+                                            isPeiceTaken = state.MovePeice(newState.Value.Key, newState.Value.Value); 
+                                    }
+
+                                    isSecondmove = true;
+
                                     DrawBoard();
                                 }
-                                while (newState.IsPeiceTaken(oldState));
+                                while (newState != null && isPeiceTaken);
+
+                                state.EndTurn();
+
+                                state.LastMove = 0;
                             }
                         }
 

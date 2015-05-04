@@ -11,7 +11,7 @@ namespace chessThing
     {
         static void Main(string[] args)
         {
-            CheckersBoard b = new CheckersBoard(true);
+            CheckersBoard b = new CheckersBoard(false);
 
             b.DrawBoard();
 
